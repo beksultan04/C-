@@ -1,0 +1,29 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+int main() {
+    setlocale(LC_ALL, "Russian");
+    const double a = 1.5;
+    const double b = 15.5;
+    const double x = 2.9;
+    std::ofstream outFile("variables.txt");
+    if (!outFile) {
+        std::cerr << "Ошибка: не удалось открыть файл для записи." << std::endl;
+        return 1;}
+    outFile << a << " " << b << " " << x << std::endl;
+    outFile.close();
+    double a_read, b_read, x_read;
+    std::ifstream inFile("variables.txt");
+    if (!inFile) {
+        std::cerr << "Ошибка: не удалось открыть файл для чтения." << std::endl;
+        return 1;}
+    inFile >> a_read >> b_read >> x_read;
+    inFile.close();
+    if (x_read == 0 || a_read == 0) {
+        std::cerr << "Ошибка: деление на ноль." << std::endl;
+        return 1;}
+    double w = pow((x_read + b_read), 3) - b_read * sin((x_read + a_read) / x_read);
+    double y = cos(sqrt(x_read) - (x_read / a_read) + b_read);
+    std::cout << "w = " << w << std::endl;
+    std::cout << "y = " << y << std::endl;
+    return 0;}
